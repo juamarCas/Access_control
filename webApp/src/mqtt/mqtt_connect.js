@@ -5,6 +5,8 @@ const options = {
     host: '192.168.0.109', 
     clientId: 'acl_server' + Math.round(Math.random() * (0 - 10000) * -1),
     keepalive: 60,
+    username: "server",
+    password: '123server',
     reconnectPeriod: 1000, 
     protocolId: 'MQIsdp', 
     protocolVersion: 3, 

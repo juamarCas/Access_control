@@ -84,7 +84,7 @@ void reconnect(){
 
     String clientID = "esp8266_"; 
     clientID += String(random(0xffff), HEX); 
-    if(client.connect(clientID.c_str())){
+    if(client.connect(clientID.c_str(), MQTT_USER, MQTT_PASS)){
       client.subscribe("edf1/apto6/hab1");
     }else{
       delay(1000); 

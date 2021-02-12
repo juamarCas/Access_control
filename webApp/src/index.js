@@ -1,25 +1,18 @@
 const express = require('express'); 
-const mqtt = require('mqtt'); 
+const mqtt_con = require('./mqtt/mqtt_connect'); 
 
 const app = express(); 
 
-const options = {
-    port: 1883, 
-    host: '192.168.0.109', 
-    clientId: 'acl_server' + Math.round(Math.random() * (0 - 10000) * -1),
-    keepalive: 60,
-    reconnectPeriod: 1000, 
-    protocolId: 'MQIsdp', 
-    protocolVersion: 3, 
-    clean: true, 
-    encoding: 'utf8'
-}; 
-
-const client = mqtt.connect("mqtt://192.168.0.109", options);
-
-client.on('connect', ()=>{
+mqtt_con.on('connect', ()=>{
     console.log("I got connected!");
+    mqtt_con.subscribe("edf1/apto6/#", ()=>{
+        console.log("I got subscribed!"); 
+    }); 
 })
+
+mqtt_con.on('message', (topic, message)=>{
+    console.log(message.toString()); 
+}); 
 
 app.set('port', process.env.PORT || 3000); 
 

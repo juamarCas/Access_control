@@ -85,7 +85,7 @@ void reconnect(){
     String clientID = "esp8266_"; 
     clientID += String(random(0xffff), HEX); 
     if(client.connect(clientID.c_str(), MQTT_USER, MQTT_PASS)){
-      client.subscribe("edf1/apto6/hab1");
+      client.subscribe("edf1/apto6/hab1/acc");
     }else{
       delay(1000); 
     }
@@ -95,7 +95,7 @@ void reconnect(){
 void SendData(String Data){
   char msg[50] = ""; 
   Data.toCharArray(msg, 50); 
-  client.publish("edf1/apto6/hab1/acc", msg); 
+  client.publish("edf1/apto6/hab1", msg); 
 }
 
 void callback(char * topic, byte * payload, unsigned int lenght){

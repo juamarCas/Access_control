@@ -1,12 +1,12 @@
 const mqtt = require('mqtt'); 
-
+require('dotenv').config(); 
 const options = {
-    port: 1883, 
-    host: '192.168.0.109', 
+    port: process.env.MQTT_PORT, 
+    host: process.env.MQTT_HOST, 
     clientId: 'acl_server' + Math.round(Math.random() * (0 - 10000) * -1),
     keepalive: 60,
-    username: "server",
-    password: '123server',
+    username: process.env.MQTT_USERNAME,
+    password: process.env.MQTT_PASS,
     reconnectPeriod: 1000, 
     protocolId: 'MQIsdp', 
     protocolVersion: 3, 

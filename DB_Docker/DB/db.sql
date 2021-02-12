@@ -15,6 +15,10 @@ INSERT INTO `mqtt_user` ( `username`, `password`, `salt`, `is_superuser`)
 VALUES
 	('device', '123123', NULL, 0);
 
+    INSERT INTO `mqtt_user` ( `username`, `password`, `salt`, `is_superuser`)
+VALUES
+	('server', '123server', NULL, 0);
+
 CREATE TABLE `mqtt_acl` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `allow` int(1) DEFAULT 1 COMMENT '0: deny, 1: allow',

@@ -1,5 +1,6 @@
 
 --mqtt_user and mqtt_acl are tables provided by emqx for the access control
+--for more info https://docs.emqx.io/en/broker/latest/advanced/acl-mysql.html#mysql-connection-information
 CREATE TABLE `mqtt_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) DEFAULT NULL,
@@ -11,14 +12,6 @@ CREATE TABLE `mqtt_user` (
   UNIQUE KEY `mqtt_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `mqtt_user` ( `username`, `password`, `salt`, `is_superuser`)
-VALUES
-	('device', '123123', NULL, 0);
-
-    INSERT INTO `mqtt_user` ( `username`, `password`, `salt`, `is_superuser`)
-VALUES
-	('server', '123server', NULL, 0);
-
 CREATE TABLE `mqtt_acl` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `allow` int(1) DEFAULT 1 COMMENT '0: deny, 1: allow',
@@ -29,3 +22,103 @@ CREATE TABLE `mqtt_acl` (
   `topic` varchar(100) NOT NULL DEFAULT '' COMMENT 'Topic Filter',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--Creating users for mqtt authentication
+
+INSERT INTO `mqtt_user` ( `username`, `password`, `salt`, `is_superuser`)
+VALUES
+	('device', '123123', NULL, 0);
+
+    INSERT INTO `mqtt_user` ( `username`, `password`, `salt`, `is_superuser`)
+VALUES
+	('server', '123server', NULL, 0);
+
+--project tables
+
+CREATE TABLE `Cards` (
+  `card_id` varchar(60) NOT NULL,
+  `model` varchar(60), 
+  `card_registered_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(`card_id`)
+)ENGINE=InnoDB;
+
+CREATE TABLE `Users` (
+  `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(60) NOT NULL, 
+  `user_lastname` varchar(60) NOT NULL, 
+  `card_id` varchar(60),
+  `user_registered_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(`user_id`), 
+  FOREIGN KEY(`card_id`) REFERENCES `Cards`(`card_id`)
+)ENGINE=InnoDB; 
+
+CREATE TABLE `Rooms` (
+  `room_id` varchar(60) NOT NULL , 
+  `room_name` varchar(60) NOT NULL,
+  `room_location`varchar(60) NOT NULL, 
+  `room_registered_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  PRIMARY KEY(`room_id`)
+)ENGINE=InnoDB;
+
+--this tamble defines which card has acces to which room
+
+CREATE TABLE `Rooms_cards`(
+  `room_id` varchar(60), 
+  `card_id` varchar(60),
+  FOREIGN KEY (`room_id`) REFERENCES `Rooms`(`room_id`), 
+  FOREIGN KEY (`card_id`) REFERENCES `Cards`(`card_id`)
+)ENGINE=InnoDB;
+
+
+--IMPLEMENTATION TEST
+/*
+--Insert test cards 
+INSERT INTO `Cards` (`card_id`, `model`) VALUES ('1234567890', 'Card'); 
+INSERT INTO `Cards` (`card_id`, `model`) VALUES ('0987654321', 'Card'); 
+INSERT INTO `Cards` (`card_id`, `model`) VALUES ('5649781231', 'Card'); 
+
+---Insert test users
+INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`) 
+VALUES ('Carlos', 'Ramirez', '1234567890'); 
+
+INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`) 
+VALUES ('Pablo', 'Navarro', '0987654321'); 
+
+INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`) 
+VALUES ('Felipe', 'Mogollon', '5649781231'); 
+
+--Insert test rooms
+INSERT INTO `Rooms` (`room_id`, `room_name`, `room_location`) 
+VALUES ('hab1_001', 'principal room', 'lobby'); 
+
+INSERT INTO `Rooms` (`room_id`, `room_name`, `room_location`) 
+VALUES ('hab1_002', 'principal room', 'lobby'); 
+
+INSERT INTO `Rooms` (`room_id`, `room_name`, `room_location`) 
+VALUES ('hab1_003', 'principal room', 'lobby'); 
+
+--Insert test room-cards
+
+INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('1234567890', 'hab1_001');
+INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('1234567890', 'hab1_002');
+INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('0987654321', 'hab1_001');
+INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('0987654321', 'hab1_003');
+INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('5649781231', 'hab1_001'); 
+INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('5649781231', 'hab1_002'); 
+INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('5649781231', 'hab1_003'); 
+
+--Test queries
+  
+  --Check if the person who passed the card is allowed to pass to that room
+
+  SELECT * FROM `Users` 
+  INNER JOIN `Rooms_cards` 
+  ON Users.card_id = '1234567890' 
+  WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = 'hab1_002'; 
+
+  --SELECT * FROM `Users`
+  --INNER JOIN `Rooms_cards`
+  --ON Users.card_id = <id tarjera recibido>
+  --WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = <id_room recibido>
+
+  */

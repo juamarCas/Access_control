@@ -12,7 +12,8 @@
 #include <CustomWiFi.h>
 #include <PubSubClient.h>
 #include <MFRC522.h>
-uint8_t acl_id = 1; 
+#include <ArduinoJson.h>
+String acl_id = "room1_001"; 
 bool hasPassed = false; 
 
 #if DEBUG
@@ -41,6 +42,8 @@ void setup() {
   cwifi.begin(); 
   client.setServer(MQTT_SERVER, MQTT_PORT); 
   client.setCallback(callback); 
+  pinMode(D0, OUTPUT); 
+  pinMode(D1, OUTPUT); 
 
   #if DEBUG  
     Serial.println("");
@@ -85,7 +88,7 @@ void reconnect(){
     String clientID = "esp8266_"; 
     clientID += String(random(0xffff), HEX); 
     if(client.connect(clientID.c_str(), MQTT_USER, MQTT_PASS)){
-      client.subscribe("edf1/apto6/hab1/acc");
+      client.subscribe("bld1/apt6/room1/acc");
     }else{
       delay(1000); 
     }
@@ -93,9 +96,10 @@ void reconnect(){
 }
 
 void SendData(String Data){
+  Data+=","+acl_id; 
   char msg[50] = ""; 
   Data.toCharArray(msg, 50); 
-  client.publish("edf1/apto6/hab1", msg); 
+  client.publish("bld1/apt6/room1", msg); 
 }
 
 void callback(char * topic, byte * payload, unsigned int lenght){
@@ -107,7 +111,15 @@ void callback(char * topic, byte * payload, unsigned int lenght){
   Serial.print("Message incomming: "); 
   Serial.println(incomming); 
   #endif
+  if(incomming == "on"){
+    //Serial.println("debug"); 
+    digitalWrite(16, HIGH); 
+  }else{
+    digitalWrite(5, HIGH); 
+  }
   delay(waitTime);
+  digitalWrite(D0, LOW); 
+  digitalWrite(D1, LOW); 
   hasPassed = false;
 }
 

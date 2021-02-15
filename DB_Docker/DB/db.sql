@@ -42,14 +42,23 @@ CREATE TABLE `Cards` (
   PRIMARY KEY(`card_id`)
 )ENGINE=InnoDB;
 
+CREATE TABLE `Admin`(
+	`admin_id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
+  `admin_user` varchar(60) NOT NULL, 
+  `admin_pass` varchar(60) NOT NULL, 
+  PRIMARY KEY(`admin_id`)
+)ENGINE=InnoDB; 
+
 CREATE TABLE `Users` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_name` varchar(60) NOT NULL, 
   `user_lastname` varchar(60) NOT NULL, 
   `card_id` varchar(60),
+  `admin_id` int(11) unsigned,
   `user_registered_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY(`user_id`), 
-  FOREIGN KEY(`card_id`) REFERENCES `Cards`(`card_id`)
+  FOREIGN KEY(`card_id`) REFERENCES `Cards`(`card_id`), 
+  FOREIGN KEY(`admin_id`) REFERENCES `Admin`(`admin_id`)
 )ENGINE=InnoDB; 
 
 CREATE TABLE `Rooms` (
@@ -69,7 +78,16 @@ CREATE TABLE `Rooms_cards`(
   FOREIGN KEY (`card_id`) REFERENCES `Cards`(`card_id`)
 )ENGINE=InnoDB;
 
+CREATE TABLE `Register`(
+  `register_user_name`, varchar(60), 
+  `register_user_id`, int(11), 
+  `register_card_id`, varchar(60), 
+  `register_room_id`, varchar(60)
+)
 
+INSERT INTO `Admin` (`admin_user`, `admin_pass`) VALUES (`admin`, `admin`); 
+INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`, `admin_id`) 
+VALUES ('Felipe', 'Mogollon', '5649781231', 1); 
 --IMPLEMENTATION TEST
 /*
 --Insert test cards 

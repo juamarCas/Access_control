@@ -13,7 +13,6 @@
 #include <PubSubClient.h>
 #include <MFRC522.h>
 #include <ArduinoJson.h>
-String acl_id = "room1_001"; 
 bool hasPassed = false; 
 
 #if DEBUG
@@ -96,7 +95,7 @@ void reconnect(){
 }
 
 void SendData(String Data){
-  Data+=","+acl_id; 
+  Data+=","+String(ROOM_ID); 
   char msg[50] = ""; 
   Data.toCharArray(msg, 50); 
   client.publish("bld1/apt6/room1", msg); 

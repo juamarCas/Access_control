@@ -14,6 +14,6 @@ const options = {
     encoding: 'utf8'
 }; 
 
-const client = mqtt.connect("mqtt://192.168.0.109", options);
+const client = mqtt.connect(`mqtt://${process.env.MQTT_HOST}`, options);
 
 module.exports = client; 

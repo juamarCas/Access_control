@@ -39,6 +39,7 @@ CREATE TABLE `Cards` (
   `card_id` varchar(60) NOT NULL,
   `model` varchar(60), 
   `card_registered_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `card_assigned` boolean DEFAULT false,
   PRIMARY KEY(`card_id`)
 )ENGINE=InnoDB;
 
@@ -79,11 +80,17 @@ CREATE TABLE `Rooms_cards`(
 )ENGINE=InnoDB;
 
 CREATE TABLE `Register`(
-  `register_user_name`, varchar(60), 
-  `register_user_id`, int(11), 
-  `register_card_id`, varchar(60), 
-  `register_room_id`, varchar(60)
-)
+  `register_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `register_user_name` varchar(60), 
+  `register_user_id` int(11), 
+  `register_card_id` varchar(60), 
+  `register_room_id` varchar(60), 
+  `register_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  PRIMARY KEY(`register_id`)
+);
+
+INSER INTO `Register` (`register_user_name`, `register_user_name`, `register_user_id`,
+`register_card_id`, `register_room_id`) VALUES ()
 
 INSERT INTO `Admin` (`admin_user`, `admin_pass`) VALUES (`admin`, `admin`); 
 INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`, `admin_id`) 
@@ -129,10 +136,10 @@ INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('5649781231', 'hab1_003
   
   --Check if the person who passed the card is allowed to pass to that room
 
-  SELECT * FROM `Users` 
+  SELECT * FROM `Users`, `Rooms` 
   INNER JOIN `Rooms_cards` 
-  ON Users.card_id = '1234567890' 
-  WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = 'hab1_002'; 
+  ON Users.card_id = '1014512825' 
+  WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = 'room_001'; 
 
   --SELECT * FROM `Users`
   --INNER JOIN `Rooms_cards`

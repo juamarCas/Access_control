@@ -2,7 +2,6 @@ const mysql = require('mysql');
 
 require('dotenv').config()
 
-
 const database = mysql.createConnection({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -12,14 +11,34 @@ const database = mysql.createConnection({
 });
 
 database.connect((err) => {
-    if(err){
-        console.log(err); 
+    if (err) {
+        console.log(err);
         return;
     }
-    console.log("Connected to my DB!")
+    console.log("Connected to my DB!");
 })
 
-module.exports=database; 
+function SelectAll(table, callback) {
+    try {
+        database.query(`SELECT * FROM ${table}`, (err, res, field) => {
+            if (err) {
+                console.log(err);
+            }
+
+            console.log(res);
+            return callback(res);
+        })
+
+    } catch (err) {
+        console.log(err); 
+    }
+
+}
+
+module.exports = {
+    database,
+    SelectAll
+}
 
 
 

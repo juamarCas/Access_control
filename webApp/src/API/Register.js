@@ -2,8 +2,8 @@
 //to see it on the client side
 const express = require('express');
 const router = express.Router();
-const db = require('../../DataBase/db');
-
+const Database = require('../../DataBase/db');
+const db = new Database(); 
 /*
 This are the routes that are in charge with everything it has to be related with registers
 like persons, cards and rooms

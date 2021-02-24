@@ -1,11 +1,11 @@
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
 const mqtt_con = require('./mqtt/mqtt_connect'); 
-const db = require('../DataBase/db');
 const router = require('./API/index'); 
 const Authentication = require('./API/Authentication'); 
 const Register = require('./API/Register'); 
 const Logs = require('./API/logs'); 
+const Database = require('../DataBase/db');
 const app = express(); 
 
 
@@ -19,6 +19,8 @@ app.use(Authentication);
 app.use('/Register', Register); 
 app.use('/Logs', Logs); 
 
+//SERVICES
+const db = new Database();
 
 //MQTT LOGIC
 mqtt_con.on('connect', ()=>{

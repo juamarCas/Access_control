@@ -47,7 +47,7 @@ mqtt_con.on('message', (topic, message)=>{
         //if the lenght of the object array is ot zero, it means it found someone with that id
         //and can enter to the room
         if(res.length){
-            const {user_id, user_name, user_lastname, card_id, room_id} = res[0]; 
+            const {user_id, user_name, card_id, room_id} = res[0]; 
             console.log(user_id); 
             console.log("Can pass"); 
             mqtt_con.publish(topic.toString() + "/acc", "on"); 

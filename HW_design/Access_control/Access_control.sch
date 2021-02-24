@@ -1,0 +1,115 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x08_Male J?
+U 1 1 6035C97B
+P 10300 1400
+F 0 "J?" H 10272 1282 50  0000 R CNN
+F 1 "Conn_01x08_Male" H 10272 1373 50  0000 R CNN
+F 2 "" H 10300 1400 50  0001 C CNN
+F 3 "~" H 10300 1400 50  0001 C CNN
+	1    10300 1400
+	-1   0    0    1   
+$EndComp
+Text Notes 10100 1900 0    50   ~ 0
+RFID
+$Comp
+L ESP_8366_CUSTOM:ESP-12E U?
+U 1 1 60363FD8
+P 2000 1500
+F 0 "U?" H 2000 2265 50  0000 C CNN
+F 1 "ESP-12E" H 2000 2174 50  0000 C CNN
+F 2 "" H 2000 1500 50  0001 C CNN
+F 3 "http://l0l.org.uk/2014/12/esp8266-modules-hardware-guide-gotta-catch-em-all/" H 2000 1500 50  0001 C CNN
+	1    2000 1500
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	500  3300 3700 3300
+Wire Notes Line
+	3700 3300 3700 500 
+Wire Notes Line
+	3700 500  500  500 
+Wire Notes Line
+	500  500  500  3300
+Text Notes 600  700  0    50   ~ 0
+ESP8266
+$Comp
+L power:GND #PWR?
+U 1 1 60367047
+P 2900 2100
+F 0 "#PWR?" H 2900 1850 50  0001 C CNN
+F 1 "GND" H 2905 1927 50  0000 C CNN
+F 2 "" H 2900 2100 50  0001 C CNN
+F 3 "" H 2900 2100 50  0001 C CNN
+	1    2900 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2900 1900 2900 2100
+$Comp
+L power:+3.3V #PWR?
+U 1 1 6036748F
+P 800 1800
+F 0 "#PWR?" H 800 1650 50  0001 C CNN
+F 1 "+3.3V" H 815 1973 50  0000 C CNN
+F 2 "" H 800 1800 50  0001 C CNN
+F 3 "" H 800 1800 50  0001 C CNN
+	1    800  1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1100 1900 800  1900
+Wire Wire Line
+	800  1900 800  1800
+$Comp
+L Device:C C?
+U 1 1 6036934F
+P 3400 1500
+F 0 "C?" H 3515 1546 50  0000 L CNN
+F 1 "C" H 3515 1455 50  0000 L CNN
+F 2 "" H 3438 1350 50  0001 C CNN
+F 3 "~" H 3400 1500 50  0001 C CNN
+	1    3400 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 6036A9FE
+P 3400 1100
+F 0 "#PWR?" H 3400 950 50  0001 C CNN
+F 1 "+3.3V" H 3415 1273 50  0000 C CNN
+F 2 "" H 3400 1100 50  0001 C CNN
+F 3 "" H 3400 1100 50  0001 C CNN
+	1    3400 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6036B509
+P 3400 2000
+F 0 "#PWR?" H 3400 1750 50  0001 C CNN
+F 1 "GND" H 3405 1827 50  0000 C CNN
+F 2 "" H 3400 2000 50  0001 C CNN
+F 3 "" H 3400 2000 50  0001 C CNN
+	1    3400 2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 1100 3400 1350
+Wire Wire Line
+	3400 2000 3400 1650
+$EndSCHEMATC

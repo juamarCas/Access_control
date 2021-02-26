@@ -1,12 +1,11 @@
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
-const mqtt_con = require('./MQTT/mqtt'); 
+const MQTT = require('./MQTT/mqtt'); 
 const router = require('./API/index'); 
 const Authentication = require('./API/Authentication'); 
 const Register = require('./API/Register'); 
 const Logs = require('./API/logs'); 
 const Database = require('./DataBase/db');
-const queries = require('./utils/queries'); 
 const app = express(); 
 
 
@@ -22,50 +21,7 @@ app.use('/Logs', Logs);
 
 //SERVICES
 const db = new Database();
-
-//MQTT LOGIC
-mqtt_con.on('connect', ()=>{
-    console.log("I got connected!");
-    mqtt_con.subscribe("bld1/apt6/+", ()=>{
-        console.log("I got subscribed!"); 
-    }); 
-})
-
-mqtt_con.on('offline', ()=>{
-    console.log('I\'m offline'); 
-}); 
-
-mqtt_con.on('message', (topic, message)=>{
-    console.log(message.toString()); 
-    console.log(`from topic: ${topic.toString()}`);
-    const pool_message = message.toString().split(",");
-    const validation = queries.ValidationQuery; //query for entrance validation
-    //check if that user exists and if the user has permision to enter
-    db.Query(validation, 
-    pool_message, (res) =>{
-        //if the lenght of the object array is ot zero, it means it found someone with that id
-        //and can enter to the room
-        if(res.length){
-            const {user_id, user_name, card_id, room_id} = res[0]; 
-            console.log(user_id); 
-            console.log("Can pass"); 
-            mqtt_con.publish(topic.toString() + "/acc", "on"); 
-            const InsertRegister = queries.InsertRegisterQuery; 
-            const values = [user_name, user_id, card_id, room_id];
-            db.query(InsertRegister, values , (err, res, fields) =>{
-                if(err){
-                    console.log(err); 
-                    return; 
-                }
-            }); 
-        }else{
-            //if the object array is empty it means nor the database didn't found anyone with that id
-            //or the card id cant pass to that room
-            console.log("Can't pass"); 
-            mqtt_con.publish(topic.toString() + "/acc", "off"); 
-        }
-    }); 
-}); 
+const mqtt = new MQTT();
 
 //SERVER START
 app.set('port', process.env.PORT || 3000); 

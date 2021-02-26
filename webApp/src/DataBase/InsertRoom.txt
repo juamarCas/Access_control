@@ -1,0 +1,1 @@
+INSERT INTO Rooms (room_id, room_name, room_location) VALUE(?, ?, ?)

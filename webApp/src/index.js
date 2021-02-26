@@ -1,11 +1,12 @@
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
-const mqtt_con = require('./mqtt/mqtt_connect'); 
+const mqtt_con = require('./MQTT/mqtt'); 
 const router = require('./API/index'); 
 const Authentication = require('./API/Authentication'); 
 const Register = require('./API/Register'); 
 const Logs = require('./API/logs'); 
-const Database = require('../DataBase/db');
+const Database = require('./DataBase/db');
+const queries = require('./utils/queries'); 
 const app = express(); 
 
 
@@ -38,14 +39,10 @@ mqtt_con.on('message', (topic, message)=>{
     console.log(message.toString()); 
     console.log(`from topic: ${topic.toString()}`);
     const pool_message = message.toString().split(",");
+    const validation = queries.ValidationQuery; //query for entrance validation
     //check if that user exists and if the user has permision to enter
-    db.query('SELECT * FROM Users INNER JOIN Rooms_cards ON Users.card_id = ? WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = ?', 
-    pool_message, (err, res, fields) =>{
-        if(err){
-            console.log(err);
-            return; 
-        }
-        console.log(res);
+    db.Query(validation, 
+    pool_message, (res) =>{
         //if the lenght of the object array is ot zero, it means it found someone with that id
         //and can enter to the room
         if(res.length){
@@ -53,13 +50,13 @@ mqtt_con.on('message', (topic, message)=>{
             console.log(user_id); 
             console.log("Can pass"); 
             mqtt_con.publish(topic.toString() + "/acc", "on"); 
-            db.query("INSERT INTO Register (register_user_name, register_user_id, register_card_id, register_room_id) VALUES (?, ?, ?, ?)", 
-            [user_name, user_id, card_id, room_id], (err, res, fields) =>{
+            const InsertRegister = queries.InsertRegisterQuery; 
+            const values = [user_name, user_id, card_id, room_id];
+            db.query(InsertRegister, values , (err, res, fields) =>{
                 if(err){
                     console.log(err); 
                     return; 
                 }
-                console.log(res); 
             }); 
         }else{
             //if the object array is empty it means nor the database didn't found anyone with that id

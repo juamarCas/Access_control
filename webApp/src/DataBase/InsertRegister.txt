@@ -1,0 +1,1 @@
+INSERT INTO Register (register_user_name, register_user_id, register_card_id, register_room_id) VALUES (?, ?, ?, ?)

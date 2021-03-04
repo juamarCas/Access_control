@@ -8,12 +8,14 @@ const InsertRegisterQuery = fs.readFileSync(path.join(__dirname,'..','DataBase',
 
 const GetUserByNameQuery = fs.readFileSync(path.join(__dirname,'..','DataBase','GetUserByName.txt')).toString(); 
 const ValidationQuery = fs.readFileSync(path.join(__dirname,'..','DataBase','validation.txt')).toString(); 
+const GetRegisterByDateQuery = fs.readFileSync(path.join(__dirname,'..','DataBase','GetRegisterByDate.txt')).toString(); 
 module.exports = {
     InsertPersonQuery, 
     InsertCardQuery,
     InsertRoomQuery,
     InsertRegisterQuery, 
     GetUserByNameQuery,
-    ValidationQuery
+    ValidationQuery, 
+    GetRegisterByDateQuery
 
 }

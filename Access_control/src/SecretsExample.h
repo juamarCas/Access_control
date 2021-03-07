@@ -6,7 +6,10 @@
 #define _PASS "your pass"
 #define MQTT_SERVER "mqtt host/ip"
 #define MQTT_PORT 1883
+#define MQTT_SUBSCRIBE_TOPIC "bld1/apt6/room1/acc"
+#define MQTT_PUBLIS_TOPIC "bld1/apt6/room1"
 #define MQTT_USER "user_auth"
 #define MQTT_PASS "pass_auth"
+#define DEBUG 1
 #endif
 

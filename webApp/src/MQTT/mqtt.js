@@ -1,6 +1,7 @@
 const mqtt = require('mqtt');
 const Database = require('../DataBase/db');
 const queries = require('../utils/queries');
+const topics = require('../utils/mqttTopics'); 
 require('dotenv').config();
 
 const db = new Database();
@@ -39,7 +40,7 @@ class MQTT {
 
     #connectSuccesfull = () => {
         console.log("I got connected!");
-        this.cmqtt.subscribe("bld1/apt6/+", () => {
+        this.cmqtt.subscribe(topics.topic_apt3_bld1, () => {
             console.log("I got subscribed!");
         });
     }

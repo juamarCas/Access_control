@@ -471,7 +471,7 @@ U 1 1 60363FD8
 P 2100 1500
 F 0 "U1" H 2100 2265 50  0000 C CNN
 F 1 "ESP-12E" H 2100 2174 50  0000 C CNN
-F 2 "RF_Module:ESP-12E" H 2100 1500 50  0001 C CNN
+F 2 "Esp8266_Module:C_WiFiModule" H 2100 1500 50  0001 C CNN
 F 3 "http://l0l.org.uk/2014/12/esp8266-modules-hardware-guide-gotta-catch-em-all/" H 2100 1500 50  0001 C CNN
 	1    2100 1500
 	1    0    0    -1  

@@ -80,9 +80,9 @@ F 3 "~" H 2350 1550 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Text GLabel 2650 1750 3    50   Input ~ 0
-RX
+RXD
 Text GLabel 2950 1750 3    50   Input ~ 0
-TX
+TXD
 Text GLabel 3250 1750 3    50   Input ~ 0
 Vcc
 $Comp

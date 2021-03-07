@@ -14,12 +14,12 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector:Conn_01x08_Male J?
+L Connector:Conn_01x08_Male J1
 U 1 1 604D813E
 P 2500 1400
-F 0 "J?" V 2427 1328 50  0000 C CNN
+F 0 "J1" V 2427 1328 50  0000 C CNN
 F 1 "Conn_01x08_Male" V 2336 1328 50  0000 C CNN
-F 2 "" H 2500 1400 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 2500 1400 50  0001 C CNN
 F 3 "~" H 2500 1400 50  0001 C CNN
 	1    2500 1400
 	0    -1   -1   0   
@@ -39,4 +39,6 @@ Text GLabel 2300 1200 1    50   Input ~ 0
 GPIO14
 Text GLabel 2200 1200 1    50   Input ~ 0
 GPIO02
+Text Notes 500  650  0    79   ~ 0
+RFID
 $EndSCHEMATC

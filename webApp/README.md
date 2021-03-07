@@ -18,7 +18,7 @@ MQTT_USERNAME=username
 MQTT_PASS=password
 ```
 </br>
-Important note: If you dont implement access control to your MQTT broker, skip the last two variables. In order to test the server is not neccesary the MQTT variables at all</br>
+Important note: If you dont implement access control to your MQTT broker, skip the last two variables. In order to test the server is not neccesary the MQTT variables at all, just leave them in blank</br>
 
 2. Run the following command: 
 ```

@@ -1,1 +1,1 @@
-SELECT * FROM Users INNER JOIN Rooms_cards ON Users.card_id = ? WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = ?
+SELECT * FROM Persons INNER JOIN Rooms_cards ON Persons.card_id = ? WHERE Rooms_cards.card_id = Persons.card_id && Rooms_cards.room_id = ?

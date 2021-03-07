@@ -1,1 +1,1 @@
-SELECT * FROM Users WHERE user_name = ? && user_lastname = ?
+SELECT * FROM Persons WHERE person_name = ? && person_lastname = ?

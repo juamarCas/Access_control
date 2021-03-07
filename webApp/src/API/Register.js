@@ -64,8 +64,8 @@ router.get('/Card/:id', (req, resp) => {
 
 router.post('/Person', (req, resp) => {
     const insertPerson = queries.InsertPersonQuery;
-    const { user_name, user_lastname, card_id, admin_id } = req.body;
-    const values = [user_name, user_lastname, card_id, admin_id];
+    const { person_name, person_lastname, card_id, admin_id } = req.body;
+    const values = [person_name, person_lastname, card_id, admin_id];
     // First checking if the card exists, if it exists size should be 1, and continue with the normal
     //operation then check if that card is already assigned, if it is assigned then can't
     //register a person
@@ -91,7 +91,7 @@ router.post('/Person', (req, resp) => {
 });
 
 router.get('/Person', (req, resp) => {
-    db.SelectAll('Users', (res) => {
+    db.SelectAll('persons', (res) => {
         if (!res.length) {
             resp.send("There is no persons registered");
             return;
@@ -103,7 +103,7 @@ router.get('/Person', (req, resp) => {
 
 router.get('/Person/:id', (req, resp) => {
     const {id} = req.params; 
-    db.SelectOne('Users', 'user_id', id, (res) =>{
+    db.SelectOne('persons', 'person_id', id, (res) =>{
 
         if(!res.length){
             resp.send("This person does not exist");
@@ -117,11 +117,11 @@ router.get('/Person/:id', (req, resp) => {
 
 router.get('/Person/:name/:lastname', (req, resp)=> {
     const {name, lastname} = req.params; 
-    const GetUserByName = queries.GetUserByNameQuery; 
+    const GetpersonByName = queries.GetpersonByNameQuery; 
     const values = [name, lastname]; 
-    db.Query(GetUserByName, values, (res) =>{
+    db.Query(GetpersonByName, values, (res) =>{
         if(!res.length){
-            resp.send(`There is no user named ${name} ${lastname}`); 
+            resp.send(`There is no person named ${name} ${lastname}`); 
         }
 
         resp.send(res[0]); 

@@ -50,14 +50,14 @@ CREATE TABLE `Admin`(
   PRIMARY KEY(`admin_id`)
 )ENGINE=InnoDB; 
 
-CREATE TABLE `Users` (
-  `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(60) NOT NULL, 
-  `user_lastname` varchar(60) NOT NULL, 
+CREATE TABLE `Persons` (
+  `person_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `person_name` varchar(60) NOT NULL, 
+  `person_lastname` varchar(60) NOT NULL, 
   `card_id` varchar(60),
   `admin_id` int(11) unsigned,
-  `user_registered_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY(`user_id`), 
+  `person_registered_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(`person_id`), 
   FOREIGN KEY(`card_id`) REFERENCES `Cards`(`card_id`), 
   FOREIGN KEY(`admin_id`) REFERENCES `Admin`(`admin_id`)
 )ENGINE=InnoDB; 
@@ -79,24 +79,22 @@ CREATE TABLE `Rooms_cards`(
   FOREIGN KEY (`card_id`) REFERENCES `Cards`(`card_id`)
 )ENGINE=InnoDB;
 
-CREATE TABLE `Register`(
-  `register_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `register_user_name` varchar(60), 
-  `register_user_id` int(11), 
-  `register_card_id` varchar(60), 
-  `register_room_id` varchar(60), 
-  `register_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+CREATE TABLE `Logs`(
+  `log_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `log_person_name` varchar(60), 
+  `log_person_id` int(11), 
+  `log_card_id` varchar(60), 
+  `log_room_id` varchar(60), 
+  `log_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   PRIMARY KEY(`register_id`)
 );
 
-INSER INTO `Register` (`register_user_name`, `register_user_name`, `register_user_id`,
-`register_card_id`, `register_room_id`) VALUES ()
+/*
 
 INSERT INTO `Admin` (`admin_user`, `admin_pass`) VALUES (`admin`, `admin`); 
-INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`, `admin_id`) 
+INSERT INTO `person` (`person_name`, `person_lastname`, `card_id`, `admin_id`) 
 VALUES ('Felipe', 'Mogollon', '5649781231', 1); 
 --IMPLEMENTATION TEST
-/*
 --Insert test cards 
 INSERT INTO `Cards` (`card_id`, `model`) VALUES ('1234567890', 'Card'); 
 INSERT INTO `Cards` (`card_id`, `model`) VALUES ('0987654321', 'Card'); 

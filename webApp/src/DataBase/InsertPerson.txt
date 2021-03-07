@@ -1,1 +1,1 @@
-INSERT INTO Users (user_name, user_lastname, card_id, admin_id) VALUES (?,?,?,?)
+INSERT INTO Person (person_name, person_lastname, card_id, admin_id) VALUES (?,?,?,?)

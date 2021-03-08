@@ -38,7 +38,7 @@ For the MQTT broker I decided to use EMQX installed in my raspberry PI 4, but it
 
 ### MQTT Topics
 
-This section I will describe how the topics are used in this project, you can modify it as you need.
+This section describes how the topics are used in this project, you can modify it as you need.
 
 The topics are managed like the following example: </br>
 1. For publishing from the microcontroller to the server: _bld1/apt3/room1_. This means: Building one/apartment 3/room 1

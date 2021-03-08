@@ -20,4 +20,4 @@ Important note: The circuit uses a relay to activate the secure system, this is 
 #endif
 ```
 </br>
-Important note: If you are not using MQTT access control, please skip MQTT_USER and MQTT_PASS, and in the main.cpp in _reconnect()_ method, delete the two parameters that are related to this definition.
+Important note: If you are not using MQTT access control, please skip MQTT_USER and MQTT_PASS, and in the main.cpp in _reconnect_ method, delete the two parameters that are related to this definition.

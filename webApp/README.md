@@ -29,16 +29,13 @@ For more information please read the [API documentation](https://github.com/juam
 
 ## Services
 
-## Database
-MySQL is the database used to store information and it follows this simplified design: </br>
-![all text](../images/DatabaseModel.png "Database model")
-
+### Database
 For more information go to the [DB_docker folder](https://github.com/juamarCas/Access_control/tree/main/DB_Docker "DB docker folder")
 
-## MQTT
+### MQTT
 It can be used any MQTT broker software. This project uses EMQX, for more information go to their webpage: [EMQX](https://www.emqx.io/). But it can be Mosquitto for example.
 
-### MQTT Topics
+#### MQTT Topics
 
 This section describes how the topics are used in this project, you can modify it as you need.
 
@@ -50,7 +47,7 @@ The topics are managed like the following example: </br>
 
 all the methods and of the MQTT service are in _./src/MQTT/mqtt.js_. for more information go to the _mqtt_ [official library documentation](https://www.npmjs.com/package/mqtt "mqtt library documentation"). </br>
 
-### MQTT Class and methods
+#### MQTT Class and methods
 The MQTT class consists in a constructor method that makes the connection to the broker and some private methods that acts as callbacks for the mqtt events. These methods are: </br>
 1. #connectSuccesful, this method is called whenever the server has connected to a mqtt broker, in this case, this method only subscribes to a topic.
 2. #offline, this method is called whenever the server gets disconnected from the mqtt broker.

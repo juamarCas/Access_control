@@ -12,7 +12,7 @@ In this section I discribe briefly what is each folder.</br>
 In this folder is the microcontroller project, is programmed using the PIO IDE.</br>
 
 ## DB_Docker
-This is a image to create a container with a MySQL Database.</br>
+This is a image to create a container with a MySQL Database and the DB queries for creating the tables.</br>
 
 ## HW_Design
 This folder includes the KiCad project for the circuit.</br>

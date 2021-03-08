@@ -1,6 +1,4 @@
 
---mqtt_user and mqtt_acl are tables provided by emqx for the access control
---for more info https://docs.emqx.io/en/broker/latest/advanced/acl-mysql.html#mysql-connection-information
 CREATE TABLE `mqtt_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) DEFAULT NULL,
@@ -23,7 +21,6 @@ CREATE TABLE `mqtt_acl` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---Creating users for mqtt authentication
 
 INSERT INTO `mqtt_user` ( `username`, `password`, `salt`, `is_superuser`)
 VALUES
@@ -33,7 +30,6 @@ VALUES
 VALUES
 	('server', '123server', NULL, 0);
 
---project tables
 
 CREATE TABLE `Cards` (
   `card_id` varchar(60) NOT NULL,
@@ -70,8 +66,6 @@ CREATE TABLE `Rooms` (
   PRIMARY KEY(`room_id`)
 )ENGINE=InnoDB;
 
---this tamble defines which card has acces to which room
-
 CREATE TABLE `Rooms_cards`(
   `room_id` varchar(60), 
   `card_id` varchar(60),
@@ -88,60 +82,3 @@ CREATE TABLE `Logs`(
   `log_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   PRIMARY KEY(`register_id`)
 );
-
-/*
-
-INSERT INTO `Admin` (`admin_user`, `admin_pass`) VALUES (`admin`, `admin`); 
-INSERT INTO `person` (`person_name`, `person_lastname`, `card_id`, `admin_id`) 
-VALUES ('Felipe', 'Mogollon', '5649781231', 1); 
---IMPLEMENTATION TEST
---Insert test cards 
-INSERT INTO `Cards` (`card_id`, `model`) VALUES ('1234567890', 'Card'); 
-INSERT INTO `Cards` (`card_id`, `model`) VALUES ('0987654321', 'Card'); 
-INSERT INTO `Cards` (`card_id`, `model`) VALUES ('5649781231', 'Card'); 
-
----Insert test users
-INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`) 
-VALUES ('Carlos', 'Ramirez', '1234567890'); 
-
-INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`) 
-VALUES ('Pablo', 'Navarro', '0987654321'); 
-
-INSERT INTO `Users` (`user_name`, `user_lastname`, `card_id`) 
-VALUES ('Felipe', 'Mogollon', '5649781231'); 
-
---Insert test rooms
-INSERT INTO `Rooms` (`room_id`, `room_name`, `room_location`) 
-VALUES ('hab1_001', 'principal room', 'lobby'); 
-
-INSERT INTO `Rooms` (`room_id`, `room_name`, `room_location`) 
-VALUES ('hab1_002', 'principal room', 'lobby'); 
-
-INSERT INTO `Rooms` (`room_id`, `room_name`, `room_location`) 
-VALUES ('hab1_003', 'principal room', 'lobby'); 
-
---Insert test room-cards
-
-INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('1234567890', 'hab1_001');
-INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('1234567890', 'hab1_002');
-INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('0987654321', 'hab1_001');
-INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('0987654321', 'hab1_003');
-INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('5649781231', 'hab1_001'); 
-INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('5649781231', 'hab1_002'); 
-INSERT INTO `Rooms_cards` (`card_id`, `room_id`) VALUES ('5649781231', 'hab1_003'); 
-
---Test queries
-  
-  --Check if the person who passed the card is allowed to pass to that room
-
-  SELECT * FROM `Users`, `Rooms` 
-  INNER JOIN `Rooms_cards` 
-  ON Users.card_id = '1014512825' 
-  WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = 'room_001'; 
-
-  --SELECT * FROM `Users`
-  --INNER JOIN `Rooms_cards`
-  --ON Users.card_id = <id tarjera recibido>
-  --WHERE Rooms_cards.card_id = Users.card_id && Rooms_cards.room_id = <id_room recibido>
-
-  */

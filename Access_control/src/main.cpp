@@ -43,7 +43,7 @@ void setup() {
   client.setCallback(callback); 
   pinMode(D0, OUTPUT); 
   pinMode(D1, OUTPUT); 
-
+  //serial begin is in the CustomWiFiLibrary
   #if DEBUG  
     Serial.println("");
     Serial.println("Access control WiFi module v 1.0"); 

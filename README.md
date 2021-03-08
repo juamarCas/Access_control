@@ -1,5 +1,5 @@
 # Access Control
-This project consist on a access control system. In this project I use the microcontroller ESP8266 for internet connection, MQTT as my data transfer protocol, NodeJS as the backend programming Language, Express as the framework for the API and MySQL as the Database.</br>
+This project consist on a access control system. It uses microcontroller ESP8266 for internet connection, MQTT as my data transfer protocol, NodeJS as the backend programming Language, Express as the framework for the API and MySQL as the Database.</br>
 
 The architecture of the complete project looks like this: </br>
 

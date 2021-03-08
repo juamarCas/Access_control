@@ -1,5 +1,5 @@
 # WebApp
-This server is made with NodeJS and Express in order to manage all the information that comes from different devices, database management and service routing.
+This server is made with NodeJS and Express in order to manage the database, the information comming from devices and service routing.
 
 to start running the project as developer: 
 1. create a .env file and copy the content from .env.example to .env, example:</br>

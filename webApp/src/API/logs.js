@@ -24,7 +24,7 @@ router.get('/:card_id', (req, resp) =>{
             return; 
         }
 
-        resp.send(res[0]); 
+        resp.send(res); 
     }); 
 });
 
@@ -36,7 +36,7 @@ router.get('/:person_name', (req, resp) => {
             return; 
         }
 
-        resp.send(res[0]); 
+        resp.send(res); 
     }); 
 }); 
 
@@ -48,7 +48,7 @@ router.get('/:room_id', (req, resp) => {
             return; 
         }
 
-        resp.send(res[0]); 
+        resp.send(res); 
     }); 
 }); 
 

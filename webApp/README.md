@@ -46,4 +46,7 @@ The topics are managed like the following example: </br>
 3. The server is subscribed to: _bld1/apt3/+_ meaning that every message are sent to apartment 3 (three) will be managed by this server. You can add more subscriptions as you need.</br>
 4. The server to grant or deny permission publish to the topic where the request is made. For example: If it receive a request from _bld2/apt4/room6_ it send the response in the form {_bld2/apt4/room6_, 'on'} ('on' or 'off' depending if can acces or not). </br>
 
-all the methods and of the MQTT service are in _./src/MQTT/mqtt.js_. for more information go to the _mqtt_ [official library Documentation](https://www.npmjs.com/package/mqtt "mqtt library documentation")
+all the methods and of the MQTT service are in _./src/MQTT/mqtt.js_. for more information go to the _mqtt_ [official library documentation](https://www.npmjs.com/package/mqtt "mqtt library documentation"). </br>
+For more information about the custom MQTT class, go to the [custom MQTT class documentation](https://github.com/juamarCas/Access_control/wiki/MQTT-Class-documentation "Custom mqtt class documentation").
+
+

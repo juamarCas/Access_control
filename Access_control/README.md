@@ -1,5 +1,5 @@
 # Access control circuit
-This section shows the circuit part of the project.</br>
+This section shows the firmware of the microcontroller part of the project.</br>
 Important note: The circuit uses a relay to activate the secure system, this is a security vulnerability, it can be brokenn with a magnetic attack, this problem can be solved changing the relay for another component like a transistor.</br>
 
 ## Running the circuit

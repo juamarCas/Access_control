@@ -34,7 +34,7 @@ MySQL is the database used to store information and it follows this simplified d
 ![all text](../images/DatabaseModel.png "Database model")
 
 ## MQTT
-For the MQTT broker I decided to use EMQX installed in my raspberry PI 4, but it can be other software like Mosquitto. You can read more info in their webpage: [EMQX](https://www.emqx.io/). 
+It can be used any MQTT broker software. This project uses EMQX, for more information go to their webpage: [EMQX](https://www.emqx.io/). But it can be Mosquitto for example.
 
 ### MQTT Topics
 

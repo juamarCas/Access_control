@@ -9,7 +9,7 @@ The architecture of the complete project looks like this: </br>
 In this section I discribe briefly what is each folder.</br>
 
 ## Access_Control
-In this folder is the microcontroller project, is programmed using the PIO IDE.</br>
+In this folder is the microcontroller project and schematics, is programmed using the PIO IDE.</br>
 
 ## DB_Docker
 This is a image to create a container with a MySQL Database and the DB queries for creating the tables.</br>

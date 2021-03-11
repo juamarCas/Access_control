@@ -80,5 +80,5 @@ CREATE TABLE `Logs`(
   `log_card_id` varchar(60), 
   `log_room_id` varchar(60), 
   `log_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-  PRIMARY KEY(`register_id`)
+  PRIMARY KEY(`log_id`)
 );

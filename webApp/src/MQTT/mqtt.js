@@ -40,7 +40,7 @@ class MQTT {
 
     #connectSuccesfull = () => {
         console.log("I got connected!");
-        this.cmqtt.subscribe(topics.topic_apt3_bld1, () => {
+        this.cmqtt.subscribe(topics.topic_apt_bld, () => {
             console.log("I got subscribed!");
         });
     }

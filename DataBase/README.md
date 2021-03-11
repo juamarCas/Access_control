@@ -1,4 +1,4 @@
-# DB_Docker
+# DataBase
 Important Note: Using docker is not necessary, use another host of your needs.</br>
 
 This dockerfile creates a image with MySQL version 5.7.</br>

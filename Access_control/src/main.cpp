@@ -107,7 +107,7 @@ void reconnect()
 
 void SendData(String Data)
 {
-  Data += "," + String(ROOM_ID);
+  Data += "," + String(ROOM_ID) +","+"access";
   char msg[50] = "";
   Data.toCharArray(msg, 50);
   client.publish("bld1/apt6/room1", msg);

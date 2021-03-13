@@ -1,19 +1,21 @@
 const mqtt = require('mqtt');
-const Database = require('../DataBase/db');
-const queries = require('../utils/queries');
+const fs = require('fs'); 
+const path = require('path'); 
+const Map = require('collections/_map'); 
 const topics = require('../utils/mqttTopics'); 
 require('dotenv').config();
-
-const db = new Database();
-
 class MQTT {
     //singleton 
     static instance;
     cmqtt; //custom mqtt
+    map; 
     constructor() {
         if (!!MQTT.instance) {
             return MQTT.instance;
         }
+
+        //map will held all the methods 
+        this.map = new Map();
 
         MQTT.instance = this;
         this.options = {
@@ -29,6 +31,12 @@ class MQTT {
             clean: true,
             encoding: 'utf8'
         };
+
+        const topicFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js')); 
+        for(const file of topicFiles){
+            const command = require(`./commands/${file}`); 
+            this.map.set(command.name, command); //save this instruction to the array
+        }
 
         this.cmqtt = mqtt.connect(`mqtt://${process.env.MQTT_HOST}`, this.options);
 
@@ -50,31 +58,17 @@ class MQTT {
     }
 
     #messageReceived = (topic, message) => {
-        console.log(message.toString());
-        console.log(`from topic: ${topic.toString()}`);
         const pool_message = message.toString().split(",");
-        const validation = queries.ValidationQuery; //query for entrance validation
-        //check if that user exists and if the user has permision to enter
-        db.Query(validation, pool_message, (res) => {
-            //if the lenght of the object array is not zero, it means it found someone with that id
-            //and can enter to the room
-            if (res.length) {
-                const { user_id, user_name, card_id, room_id } = res[0];
-                console.log(user_id);
-                console.log("Can pass");
-                this.cmqtt.publish(topic.toString() + "/acc", "on");
-                const InsertRegister = queries.InsertRegisterQuery;
-                const values = [user_name, user_id, card_id, room_id];
-                db.query(InsertRegister, values, (res) => {
-                    console.log(res); 
-                });
-            } else {
-                //if the object array is empty it means nor the database didn't found anyone with that id
-                //or the card id cant pass to that room
-                console.log("Can't pass");
-                this.cmqtt.publish(topic.toString() + "/acc", "off");
-            }
-        });
+        
+        if(!this.map.has(pool_message[2])) return; //if this command does not exist, just return
+    
+        const command = this.map.get(pool_message[2]); 
+        
+        try{
+            command.execute(topic, message); 
+        }catch(err){    
+            console.log(err); 
+        }
     }
 
 

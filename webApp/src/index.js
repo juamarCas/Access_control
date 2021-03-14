@@ -9,15 +9,14 @@ const app = express();
 
 
 //MIDDLEWERES
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json()); 
+app.use(express.json()); 
 
 //ROUTES
 app.use(Authentication); 
 app.use('/Register', Register); 
 app.use('/Logs', Logs); 
 
-//SERVICES
+//SERVICES INITIALIZING
 const db = new Database();
 const mqtt = new MQTT();
 

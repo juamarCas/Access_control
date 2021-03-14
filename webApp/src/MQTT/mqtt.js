@@ -35,7 +35,7 @@ class MQTT {
         const topicFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js')); 
         for(const file of topicFiles){
             const command = require(`./commands/${file}`); 
-            this.map.set(command.name, command); //save this instruction to the array
+            this.map.set(command.type, command); //save this instruction to the array
         }
 
         this.cmqtt = mqtt.connect(`mqtt://${process.env.MQTT_HOST}`, this.options);
@@ -58,14 +58,15 @@ class MQTT {
     }
 
     #messageReceived = (topic, message) => {
-        const pool_message = message.toString().split(",");
-        
-        if(!this.map.has(pool_message[2])) return; //if this command does not exist, just return
-    
-        const command = this.map.get(pool_message[2]); 
+        const obj = JSON.parse(message.toString()); 
+        const key = obj.type.toString(); 
+       
+        if(!this.map.has(key)) return; //if this command does not exist, just return
+ 
+        const command = this.map.get(key); 
         
         try{
-            command.execute(topic, message); 
+            command.execute(topic, obj); 
         }catch(err){    
             console.log(err); 
         }

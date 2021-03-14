@@ -1,8 +1,8 @@
 
 #define _SSPIN D4
 #define _RSTPIN D3
-#define _ACCESS_DENIED_LED D8
-#define _ACCESS_GRANTED_LED D1
+#define _ACCESS_DENIED_LED D1
+#define _ACCESS_GRANTED_LED D0
 #define _ACCESS_RELAY_PIN D0
 #define DEBUG 1 //please, when you are going to release, turn this DEBUG to 0, like, #define DEBUG 0
 
@@ -15,6 +15,7 @@
 #include <PubSubClient.h>
 #include <MFRC522.h>
 #include <ArduinoJson.h>
+#include <string>
 bool hasPassed = false;
 
 #if DEBUG
@@ -30,6 +31,10 @@ void reconnect();
 void SendData(String data);
 void callback(char *topic, byte *payload, unsigned int lenght);
 
+const int capacity = JSON_OBJECT_SIZE(4) + 35;
+DynamicJsonBuffer doc(capacity);
+JsonObject &root = doc.createObject();
+
 #if DEBUG
 //Debug functions if needed
 void ShowReaderDetails();
@@ -44,7 +49,7 @@ void setup()
   client.setCallback(callback);
   pinMode(_ACCESS_DENIED_LED, OUTPUT);
   pinMode(_ACCESS_GRANTED_LED, OUTPUT);
-  pinMode(_ACCESS_RELAY_PIN, OUTPUT);
+  //pinMode(_ACCESS_RELAY_PIN, OUTPUT);
 //serial begin is in the CustomWiFiLibrary
 #if DEBUG
   Serial.println("");
@@ -77,6 +82,7 @@ void loop()
     {
       data += String(acl.uid.uidByte[i]);
     }
+
     SendData(data);
 #if DEBUG
     Serial.println(data);
@@ -107,39 +113,61 @@ void reconnect()
 
 void SendData(String Data)
 {
-  Data += "," + String(ROOM_ID) +","+"access";
-  char msg[50] = "";
-  Data.toCharArray(msg, 50);
-  client.publish("bld1/apt6/room1", msg);
+  root["type"].set("access");
+  root["card"].set(Data);
+  root["room"].set(ROOM_ID);
+  char jsonChar[100];
+  root.printTo((char *)jsonChar, root.measureLength() + 1);
+  client.publish("bld1/apt6/room1", jsonChar);
 }
 
 void callback(char *topic, byte *payload, unsigned int lenght)
 {
+
   String incomming = "";
   for (unsigned int i = 0; i < lenght; i++)
   {
     incomming += (char)payload[i];
   }
-#if DEBUG
-  Serial.print("Message incomming: ");
-  Serial.println(incomming);
-#endif
-  if (incomming == "on")
+  char buff[100]; 
+  incomming.toCharArray(buff, 100); 
+  JsonObject &obj = doc.parseObject(buff);
+  
+  //Deserializing the JSON incomming from the server
+  /*
+  this is the JSON format incomming example: 
   {
-    //Serial.println("debug");
-    digitalWrite(_ACCESS_GRANTED_LED, HIGH);
-    digitalWrite(_ACCESS_RELAY_PIN, HIGH);
+    "status": "off"
+  }
+  */
+  if (obj.success())
+  {
+    auto status = obj["status"].as<char *>();
+    const char *onStatus = "on";
+    Serial.println(status); 
+    if (strcmp(status, onStatus) == 0)
+    {
+      //Serial.println("debug");
+      digitalWrite(_ACCESS_GRANTED_LED, HIGH);
+      digitalWrite(_ACCESS_RELAY_PIN, HIGH);
+    }
+    else
+    {
+      digitalWrite(_ACCESS_DENIED_LED, HIGH);
+    }
+    delay(waitTime);
+
+    digitalWrite(_ACCESS_GRANTED_LED, LOW);
+    digitalWrite(_ACCESS_RELAY_PIN, LOW);
+    digitalWrite(_ACCESS_DENIED_LED, LOW);
   }
   else
   {
-    digitalWrite(_ACCESS_DENIED_LED, HIGH);
+#if DEBUG
+    Serial.println("Does not parse");
+#endif
   }
-  delay(waitTime);
-
-  digitalWrite(_ACCESS_GRANTED_LED, LOW);
-  digitalWrite(_ACCESS_RELAY_PIN, LOW);
-  digitalWrite(_ACCESS_DENIED_LED, LOW);
-  hasPassed = false;
+    hasPassed = false;
 }
 
 #if DEBUG

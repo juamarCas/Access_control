@@ -6,7 +6,8 @@ The architecture of the complete project looks like this: </br>
 ![all text](./images/ProjectArchitecture.png)
 
 # Dockerizing
-The project can be executed with containers, for this, there is the _docker-compose.yml_ file, just copy the content of app.env.example and paste it in a new file called app.env same to the db.env.example then fill the data needed in both files, build the two Dockerfile that are in DataBase and webApp and then run the docker-compose.
+The project can be executed with containers, for this, there is the _docker-compose.yml_ file, just copy the content of app.env.example and paste it in a new file called app.env same to the db.env.example then fill the data needed in both files, build the two Dockerfile that are in DataBase and webApp and then run the docker-compose.</br>
+In the docker-compose file describes that the image used for the app is nodeapp, so be sure when the image is builded is named as that, or change its name as your needs, same for the image of the database.
 
 # Directory
 In this section I discribe briefly what is each folder.</br>

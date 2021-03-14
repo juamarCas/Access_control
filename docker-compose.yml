@@ -20,5 +20,15 @@ services:
       - backend 
     depends_on: 
       - db
+  broker: 
+    image: emqx/emqx:v3.2.8
+    container_name: broker
+    env_file: broker.env
+    ports: 
+      - "18083:18083"
+    networks: 
+      - backend
+    depends_on: 
+      - db 
 networks: 
   backend: 

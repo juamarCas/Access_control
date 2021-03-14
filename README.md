@@ -6,7 +6,7 @@ The architecture of the complete project looks like this: </br>
 ![all text](./images/ProjectArchitecture.png)
 
 # Dockerizing
-The project can be executed with containers, for this, there is the _docker-compose.yml_ file, just copy the content of app.env.example and paste it in a new file called app.env same to the db.env.example, build the two Dockerfile that are in DataBase and webApp and then run the docker-compose.
+The project can be executed with containers, for this, there is the _docker-compose.yml_ file, just copy the content of app.env.example and paste it in a new file called app.env same to the db.env.example then fill the data needed in both files, build the two Dockerfile that are in DataBase and webApp and then run the docker-compose.
 
 # Directory
 In this section I discribe briefly what is each folder.</br>
@@ -15,7 +15,7 @@ In this section I discribe briefly what is each folder.</br>
 In this folder is the microcontroller project and schematics, is programmed using the PIO IDE.</br>
 
 ## DataBase
-This is a image to create a container with a MySQL Database and the DB queries for creating the tables.</br>
+Thise folder contains the sql file for creating the tables needed.</br>
 
 ## HW_Design
 This folder includes the KiCad project for the circuit.</br>

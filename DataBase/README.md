@@ -1,7 +1,7 @@
-# DB_Docker
+# DataBase
+MySQL version 5.7 </br>
 Important Note: Using docker is not necessary, use another host of your needs.</br>
 
-This dockerfile creates a image with MySQL version 5.7.</br>
 ## Database design 
 
 MySQL is the database used to store information and it follows this simplified design: </br>

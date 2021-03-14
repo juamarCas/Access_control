@@ -51,5 +51,7 @@ all the methods and of the MQTT service are in _./src/MQTT/mqtt.js_. for more in
 The MQTT class consists in a constructor method that makes the connection to the broker and some private methods that acts as callbacks for the mqtt events. These methods are: </br>
 1. #connectSuccesful, this method is called whenever the server has connected to a mqtt broker, in this case, this method only subscribes to a topic.
 2. #offline, this method is called whenever the server gets disconnected from the mqtt broker.
-3. #messageReceived, this method has two parameters _topic_ and _message_, this method is called whenever the server receive a _message_ from a _topic_ in which the server is subscribed. This method receives the message in the form of <card_id>,<room_id> from the device. Example: a person which card_id is '123456' has passed to the room 'room001' send the following data: '123456','room001' to the server.
+3. #messageReceived, this method has two parameters _topic_ and _message_, this method is called whenever the server receive a _message_ from a _topic_ in which the server is subscribed.
+
+For more information, go to the [class documentation](https://github.com/juamarCas/Access_control/wiki/MQTT-Class-documentation)
 

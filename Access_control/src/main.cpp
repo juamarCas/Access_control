@@ -49,7 +49,6 @@ void setup()
   client.setCallback(callback);
   pinMode(_ACCESS_DENIED_LED, OUTPUT);
   pinMode(_ACCESS_GRANTED_LED, OUTPUT);
-  //pinMode(_ACCESS_RELAY_PIN, OUTPUT);
 //serial begin is in the CustomWiFiLibrary
 #if DEBUG
   Serial.println("");
@@ -113,6 +112,15 @@ void reconnect()
 
 void SendData(String Data)
 {
+  //Sending data in JSON Format
+  /*
+  JSON sent format example:
+  {
+    "type":"access", 
+    "card":"1234567", 
+    "room": "room_001"
+  }
+  */
   root["type"].set("access");
   root["card"].set(Data);
   root["room"].set(ROOM_ID);
@@ -129,11 +137,13 @@ void callback(char *topic, byte *payload, unsigned int lenght)
   {
     incomming += (char)payload[i];
   }
+
+
+  //Deserializing the JSON incomming from the server
   char buff[100]; 
   incomming.toCharArray(buff, 100); 
   JsonObject &obj = doc.parseObject(buff);
   
-  //Deserializing the JSON incomming from the server
   /*
   this is the JSON format incomming example: 
   {
@@ -147,7 +157,6 @@ void callback(char *topic, byte *payload, unsigned int lenght)
     Serial.println(status); 
     if (strcmp(status, onStatus) == 0)
     {
-      //Serial.println("debug");
       digitalWrite(_ACCESS_GRANTED_LED, HIGH);
       digitalWrite(_ACCESS_RELAY_PIN, HIGH);
     }
@@ -189,8 +198,7 @@ void ShowReaderDetails()
   {
     Serial.println(F("WARNING: Communication failure, is the MFRC522 properly connected?"));
     Serial.println(F("SYSTEM HALTED: Check connections."));
-    while (true)
-      ; // do not go further
+    while (true); // do not go further
   }
 }
 #endif

@@ -4,6 +4,8 @@ services:
     image: mysql:custom
     container_name: appDB
     env_file: db.env
+    build: 
+      context: DataBase
     networks: 
       - backend
     ports:
@@ -13,6 +15,8 @@ services:
     restart: always
     container_name: app
     env_file: app.env
+    build: 
+      context: webApp
     ports: 
       - "3000:3000"  
     command: npm run start

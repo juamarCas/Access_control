@@ -20,11 +20,11 @@ module.exports = {
             //and can enter to the room
             if (res.length) {
                 answer.status = "on"; 
-                const { user_id, user_name, card_id, room_id } = res[0];
+                const { person_id, person_name, card_id, room_id } = res[0];
                 console.log(user_id);
                 mqtt.cmqtt.publish(topic.toString() + "/acc", JSON.stringify(answer));
                 const InsertRegister = queries.InsertRegisterQuery;
-                const values = [user_name, user_id, card_id, room_id];
+                const values = [person_name, person_id, card_id, room_id];
                 db.Query(InsertRegister, values, (res) => {
                     console.log(res);
                 });

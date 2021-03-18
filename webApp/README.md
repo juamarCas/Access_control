@@ -30,7 +30,7 @@ For more information please read the [API documentation](https://github.com/juam
 ## Services
 
 ### Database
-For more information go to the [DB_docker folder](https://github.com/juamarCas/Access_control/tree/main/DB_Docker "DB docker folder")
+For more information go to the [DataBase folder](https://github.com/juamarCas/Access_control/tree/main/DataBase "DB docker folder")
 
 ### MQTT
 It can be used any MQTT broker software. This project uses EMQX, for more information go to their webpage: [EMQX](https://www.emqx.io/). But it can be Mosquitto for example.

@@ -1,1 +1,1 @@
-INSERT INTO Logs (log_person_name, log_person_id, log_person_id, log_room_id) VALUES (?, ?, ?, ?)
+INSERT INTO Logs (log_person_name, log_person_id, log_card_id, log_room_id) VALUES (?, ?, ?, ?)

@@ -30,6 +30,7 @@ services:
     env_file: broker.env
     ports: 
       - "18083:18083"
+      - "1883:1883"
     networks: 
       - backend
     depends_on: 
